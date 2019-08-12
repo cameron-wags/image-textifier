@@ -1,9 +1,9 @@
 ﻿using System;
 
+using SixLabors.ImageSharp;
+
 using Lib;
 
-using SixLabors.ImageSharp;
-using SixLabors.Primitives;
 
 namespace Runner
 {
