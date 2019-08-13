@@ -8,26 +8,21 @@ namespace Lib
 {
     public class ProcessRunner
     {
-        public List<IImageProcess> ToRun { get => _processes; }
-        private List<IImageProcess> _processes;
+        public List<IImageProcess> ToRun { get; } = new List<IImageProcess>();
 
         public ProcessRunner(params IImageProcess[] processes)
         {
-            _processes = new List<IImageProcess>();
-
-            foreach (var process in processes)
-            {
-                ToRun.Add(process);
-            }
+            ToRun.AddRange(processes);
         }
 
         public Image<Rgba32> Run(Image<Rgba32> image)
         {
             var tempImage = image;
-            foreach (var process in _processes)
+
+            ToRun.ForEach((process) =>
             {
                 tempImage = process.RunProcess(tempImage);
-            }
+            });
 
             return tempImage;
         }
