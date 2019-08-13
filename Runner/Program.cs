@@ -1,6 +1,4 @@
-﻿using System;
-
-using SixLabors.ImageSharp;
+﻿using SixLabors.ImageSharp;
 
 using Lib;
 
@@ -16,7 +14,8 @@ namespace Runner
             using (var inputImage = Image.Load("../inputs/" + imageName))
             {
                 var imageResult = ProcessRunner.Run(inputImage,
-                    new NothingProcess());
+                    new MosaicProcess(101, 101)
+                    );
 
                 using (var outputImage = imageResult.Clone())
                 {

@@ -1,5 +1,3 @@
-using System.IO;
-
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
 
