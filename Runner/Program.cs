@@ -11,15 +11,15 @@ namespace Runner
         {
             var imageName = "flower.jpg";
 
-            using (var inputImage = Image.Load("../inputs/" + imageName))
+            using (var inputImage = Image.Load("../input/" + imageName))
             {
                 var imageResult = ProcessRunner.Run(inputImage,
-                    new MosaicProcess(101, 101)
+                    new MosaicProcess(14, 21)
                     );
 
                 using (var outputImage = imageResult.Clone())
                 {
-                    outputImage.Save("../outputs/" + imageName);
+                    outputImage.Save("../output/" + imageName);
                 }
             }
         }

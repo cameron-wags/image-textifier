@@ -52,11 +52,31 @@ namespace Lib
         /// <returns>Color value</returns>
         private Rgba32 AggregateTile(int horizontalIndex, int verticalIndex)
         {
-            //TODO: come up with some strategy to aggregate the tile's pixels instead of just gradienting
+            int xStart = horizontalIndex * _horizontal_tile_size;
+            int xFinish = xStart + _horizontal_tile_size;
+            int yStart = verticalIndex * _vertical_tile_size;
+            int yFinish = yStart + _vertical_tile_size;
 
-            var r = (byte)Convert.ToInt32((double)horizontalIndex / _horizontal_tile_count * 255);
-            var g = (byte)0;
-            var b = (byte)Convert.ToInt32((double)verticalIndex / _vertical_tile_count * 255);
+            int redSum = 0;
+            int greenSum = 0;
+            int blueSum = 0;
+            int count = (xFinish - xStart) * (yFinish - yStart);
+
+            for (int x = xStart; x < xFinish && x < _image.Width; x++)
+            {
+                for (int y = yStart; y < yFinish && y < _image.Height; y++)
+                {
+                    var pixel = _image[x, y];
+                    redSum += Convert.ToInt32(pixel.R);
+                    greenSum += Convert.ToInt32(pixel.G);
+                    blueSum += Convert.ToInt32(pixel.B);
+                }
+            }
+
+            // Why does averaging work so well
+            var r = (byte)(redSum / count);
+            var g = (byte)(greenSum / count);
+            var b = (byte)(blueSum / count);
             var a = (byte)255;
 
             return new Rgba32(r, g, b, a);
